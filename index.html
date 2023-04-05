@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Search for Legacy Verified Twitter Accounts
 ---
 
@@ -7,8 +6,8 @@ title: Search for Legacy Verified Twitter Accounts
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter Legacy Verified Accounts</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
 </head>
 
 <div class="container">
@@ -19,7 +18,7 @@ title: Search for Legacy Verified Twitter Accounts
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 <script>
-const csvUrl = '/legacy-verified.csv';
+const csvUrl = './legacy-verified.csv';
 
 fetch(csvUrl)
     .then((response) => response.text())
@@ -73,7 +72,7 @@ fetch(csvUrl)
     // Add a placeholder image if the fetched image doesn't exist
     img.onerror = function() {
         // Replace the URL with the placeholder image URL
-        img.src = '/assets/images/placeholder.png';
+        img.src = './assets/images/placeholder.png';
     };
 
     const textContainer = document.createElement('div');
@@ -89,7 +88,7 @@ fetch(csvUrl)
 
     const verifiedBadge = document.createElement('span');
     verifiedBadge.classList.add('verified-badge');
-    verifiedBadge.innerHTML = `<img src="/assets/images/verified.svg" alt="Verified account" />`;
+    verifiedBadge.innerHTML = `<img src="./assets/images/verified.svg" alt="Verified account" />`;
     nameContainer.appendChild(verifiedBadge);
 
     const usernameSpan = document.createElement('span');
