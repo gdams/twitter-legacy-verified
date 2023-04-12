@@ -32,7 +32,7 @@ app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Update the CSV parsing to include the new fields
 let users = new Map();
 
-fs.createReadStream('legacy-verified.csv')
+fs.createReadStream('../legacy-verified.csv')
   .pipe(csvParser(['id', 'name', 'username']))
   .on('data', (row) => {
     users.set(row.username, { id: row.id, name: row.name });
