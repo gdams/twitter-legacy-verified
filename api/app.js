@@ -27,7 +27,7 @@ const swaggerOptions = {
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Update the CSV parsing to include the new fields
 let users = new Map();
@@ -95,3 +95,7 @@ app.get('/api/users/:username', (req, res) => {
     res.status(404).json({ error: 'User not in the legacy verified list' });
   }
 });
+
+app.get('/', (req, res) => {
+  res.redirect('swagger-ui');
+})
