@@ -5,4 +5,4 @@ Feel free to use this information as you wish, this information was scraped by o
 
 The CSV file is located in the root of the directory [`legacy-verified.csv`](./legacy-verified.csv).
 
-There is also a handy search page available at https://gdams.github.io/twitter-legacy-verified/ which allows you to search for legacy verified users.
+There is also a handy search page and API available at https://twitter-legacy.herokuapp.com which allows you to search for legacy verified users.
