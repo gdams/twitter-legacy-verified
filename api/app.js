@@ -1,11 +1,14 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const csvParser = require('csv-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
 const app = express();
+app.use(express.json()); // Add this line to parse JSON request bodies
+app.use(express.static(path.join(__dirname, 'public'))); // Add this line to serve static assets
 
 app.use(cors());
 
@@ -46,6 +49,49 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+/**
+ * @swagger
+ * /api/users/search:
+ *   get:
+ *     summary: Search and filter users
+ *     description: Search and filter users from the legacy-verified.csv file by name or username
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The search query for filtering users by name or username
+ *     responses:
+ *       200:
+ *         description: A list of filtered users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   username:
+ *                     type: string
+ *                   id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ */
+app.get('/api/users/search', (req, res) => {
+  const query = req.query.q.toLowerCase();
+  const filteredUsers = [];
+
+  users.forEach((user, username) => {
+    if (username.toLowerCase().includes(query) || user.name.toLowerCase().includes(query)) {
+      filteredUsers.push({ username, id: user.id, name: user.name });
+    }
+  });
+
+  res.status(200).json(filteredUsers);
 });
 
 // Update the API endpoint to return the new fields
@@ -97,5 +143,5 @@ app.get('/api/users/:username', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('swagger-ui');
-})
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
