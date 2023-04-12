@@ -1,0 +1,7 @@
+{
+    "name": "twitter-legacy",
+    "version": "0.1.0",
+    "scripts": {
+      "postinstall": "npm install --prefix api"
+    }
+  }
