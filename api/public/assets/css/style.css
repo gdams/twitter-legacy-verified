@@ -77,6 +77,9 @@ a {
     align-items: center;
     color: #1da1f2;
     font-weight: bold;
+}
+
+.results a {
     margin-left: 1rem;
 }
 
