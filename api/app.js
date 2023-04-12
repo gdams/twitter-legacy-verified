@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const path = require('path');
 const csvParser = require('csv-parser');
@@ -11,6 +12,12 @@ app.use(express.json()); // Add this line to parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Add this line to serve static assets
 
 app.use(cors());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 250, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again in 15 minutes',
+});
 
 const swaggerOptions = {
   definition: {
@@ -81,7 +88,7 @@ app.listen(PORT, () => {
  *                   name:
  *                     type: string
  */
-app.get('/api/users/search', (req, res) => {
+app.get('/api/users/search', limiter, (req, res) => {
   const query = req.query.q.toLowerCase();
   const filteredUsers = [];
 
@@ -132,7 +139,7 @@ app.get('/api/users/search', (req, res) => {
  *                 error:
  *                   type: string
  */
-app.get('/api/users/:username', (req, res) => {
+app.get('/api/users/:username', limiter, (req, res) => {
   const username = req.params.username;
   if (users.has(username)) {
     const user = users.get(username);

@@ -26,22 +26,22 @@
         const resultsDiv = document.getElementById('results');
 
         searchInput.addEventListener('input', async function () {
-          const searchQuery = searchInput.value.toLowerCase();
+            const searchQuery = searchInput.value.toLowerCase();
 
-          if (searchQuery.length < 2) {
-              resultsDiv.innerHTML = '<p>Please refine your search.</p>';
-              return;
-          }
+            if (searchQuery.length < 3) {
+            resultsDiv.innerHTML = '<p>Please type at least 3 characters.</p>';
+            return;
+            }
 
-          const response = await fetch(`/api/users/search?q=${encodeURIComponent(searchQuery)}`);
-          const searchResults = await response.json();
+            const response = await fetch(`/api/users/search?q=${encodeURIComponent(searchQuery)}`);
+            const searchResults = await response.json();
 
-          if (searchResults.length <= 50) {
-              displayResults(searchResults, resultsDiv);
-          } else {
-              resultsDiv.innerHTML = '<p>Please refine your search to display 50 or fewer results.</p>';
-          }
-      });
+            if (searchResults.length <= 100) {
+            displayResults(searchResults, resultsDiv);
+            } else {
+            resultsDiv.innerHTML = '<p>Please refine your search to display 100 or fewer results.</p>';
+            }
+        });
 
         function displayResults(results, resultsDiv) {
             if (results.length === 0) {
