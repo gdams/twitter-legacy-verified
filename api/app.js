@@ -10,6 +10,8 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const app = express();
 app.use(express.json()); // Add this line to parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Add this line to serve static assets
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
 
@@ -101,7 +103,6 @@ app.get('/api/users/search', limiter, (req, res) => {
   res.status(200).json(filteredUsers);
 });
 
-// Update the API endpoint to return the new fields
 /**
  * @swagger
  * /api/users/{username}:
@@ -150,5 +151,5 @@ app.get('/api/users/:username', limiter, (req, res) => {
 });
 
 app.get('/', limiter, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.render('index', { pageTitle: 'Twitter Legacy Verified Accounts' });
 });
