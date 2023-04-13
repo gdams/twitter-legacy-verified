@@ -149,6 +149,6 @@ app.get('/api/users/:username', limiter, (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
+app.get('/', limiter, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
